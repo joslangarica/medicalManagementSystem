@@ -1,0 +1,68 @@
+/* Color Palette */
+:root {
+    --primary-color: #007BFF;
+    --secondary-color: #F4F4F4;
+    --text-color: #333333;
+    --accent-color: #50C878;
+    --white-color: #FFFFFF;
+}
+
+/* Typography */
+body {
+    font-family: Arial, sans-serif;
+    color: var(--text-color);
+    background-color: var(--secondary-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+p {
+    font-size: 16px;
+}
+
+.caption {
+    font-size: 12px;
+}
+
+/* Buttons */
+button {
+    border-radius: 5px;
+}
+
+/* User Interface Elements */
+.primary-btn {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+.secondary-btn {
+    background-color: var(--secondary-color);
+}
+
+/* Layout and Spacing */
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 15px
+}
+
+/* Accessibility */
+a {
+    color: var(--primary-color);
+}
+
+/* Grid System */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}

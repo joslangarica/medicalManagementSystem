@@ -1,0 +1,120 @@
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <style>
+        .patient-link:visited {
+          color: white !important;
+        }
+      </style>
+
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="mb-5 text-center">Appointment Details</h2>
+
+    <div class="card shadow-lg rounded hover-shadow">
+        <div class="card-header bg-primary text-white rounded-top d-flex justify-content-between align-items-center">
+            <a href="/patients/<%= appointment.patientId._id %>" class="patient-link">
+            <h4><i class="fas fa-user-circle mr-2"></i> <%= appointment.patientId.firstName %> <%= appointment.patientId.lastName %></h4>
+        </a>
+            <small><i class="fas fa-calendar-alt mr-2"></i> <%= appointment.date.toDateString() %> <i class="fas fa-clock ml-3 mr-2"></i> <%= appointment.time %></small>
+            
+        </div>
+
+        <div class="card-body">
+            <p class="mb-4"><i class="fas fa-map-marker-alt mr-2 text-primary"></i> <%= appointment.location %></p>
+            
+            <section class="mb-5">
+                <div class="d-flex align-items-center mb-3">
+                    <h5 class="mb-0">Reason for Visit</h5>
+                    <i class="fas fa-question-circle fa-2x text-primary ml-3"></i>
+                </div>
+                <div class="bg-light p-3 rounded">
+                    <p class="mb-0 font-weight-bold text-dark"><%= appointment.reasonForVisit %></p>
+                </div>
+            </section>
+            
+            <section class="mb-5">
+                <div class="d-flex align-items-center">
+                    <h5 class="mb-0">Diagnosis</h5>
+                    <i class="fas fa-stethoscope fa-2x text-primary ml-3"></i>
+                </div>
+                <div class="bg-light p-3 rounded mt-3">
+                    <p class="mb-0"><%= appointment.diagnosis %></p>
+                </div>
+            </section>
+
+            <section class="mb-5">
+                <h5>Prescriptions</h5>
+                <div class="row">
+                    <% appointment.prescription.forEach((med, index) => { %>
+                        <div class="col-md-4 mb-3">
+                            <div class="card shadow-sm hover-shadow">
+                                <div class="card-header bg-primary text-white">
+                                    Medicine <%= index + 1 %>:
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-title mb-2"><%= med.medicineName %></p>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2"><strong><i class="fas fa-capsules mr-2 text-muted"></i></strong> Dosage: <%= med.dosage %></li>
+                                        <li class="mb-2"><strong><i class="fas fa-sync-alt mr-2 text-muted"></i></strong> Frequency: <%= med.frequency %></li>
+                                        <li class="mb-2"><strong><i class="fas fa-hourglass-start mr-2 text-muted"></i></strong> Duration: <%= med.duration %></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </section>
+
+            <section class="mb-5">
+                <div class="d-flex align-items-center mb-3">
+                    <h5 class="mb-0">Notes</h5>
+                    <i class="fas fa-sticky-note fa-2x text-primary ml-3"></i>
+                </div>
+                <div class="bg-light p-3 rounded">
+                    <p class="mb-0"><%= appointment.notes ? appointment.notes : 'No additional notes provided.' %></p>
+                </div>
+            </section>
+
+            <% if (appointment.documents && appointment.documents.length > 0) { %>
+                <section class="mb-5">
+                    <h5 class="mb-3">Documents:</h5>
+                    <% appointment.documents.forEach((doc) => { %>
+                        <div class="bg-light shadow-sm mb-2 rounded d-flex align-items-center justify-content-between p-3">
+                            <div><i class="fas fa-file-alt text-primary mr-2"></i> <%= doc.description %></div>
+                            <a href="<%= doc.uri %>" class="btn btn-outline-primary btn-sm" target="_blank">View</a>
+                        </div>
+                    <% }); %>
+                </section>
+            <% } %>
+
+            <% if (appointment.followUpDate) { %>
+                <div class="alert alert-warning rounded mb-3">
+                    <h5>Follow-Up Date</h5>
+                    <%= appointment.followUpDate %> at <%= appointment.time %>
+                </div>
+            <% } else { %>
+                <div class="mb-3">
+                    <h5>No Follow-Up Date Scheduled</h5>
+                </div>
+            <% } %>
+
+            <div class="d-flex justify-content-end">
+                <a href="/appointments/edit/<%= appointment._id %>" class="btn btn-primary mr-2">
+                    <i class="fas fa-edit"></i> Edit
+                </a>
+                <form action="/appointments/delete/<%= appointment._id %>?_method=DELETE" method="post" onsubmit="return confirm('Are you sure you want to delete this appointment?');">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

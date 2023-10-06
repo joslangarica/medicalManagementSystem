@@ -1,0 +1,26 @@
+<div class="container mt-5">
+    <h2 class="mb-4 text-primary">Patient Prescriptions</h2>
+    
+    <div class="row">
+        <% allPrescriptions.forEach(prescription => { %>
+            <div class="col-md-4 mb-4">
+                <a href="/appointments/details/<%= prescription.appointmentId %>" class="text-decoration-none">
+                    <div class="card border-primary">
+                        <div class="card-header bg-light text-primary">
+                            <i class="fas fa-prescription-bottle-alt mr-2"></i>
+                            <%= prescription.medicineName %>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                <span class="d-block mb-2"><i class="fas fa-capsules mr-2 text-primary"></i> Dosage: <span class="font-weight-bold"><%= prescription.dosage %></span></span>
+                                <span class="d-block mb-2"><i class="fas fa-sync-alt mr-2 text-primary"></i> Frequency: <span class="font-weight-bold"><%= prescription.frequency %></span></span>
+                                <span class="d-block mb-2"><i class="fas fa-hourglass-start mr-2 text-primary"></i> Duration: <span class="font-weight-bold"><%= prescription.duration %></span></span>
+                                <span class="d-block"><i class="fas fa-calendar-alt mr-2 text-primary"></i> Date: <span class="font-weight-bold"><%= new Date(prescription.appointmentDate).toLocaleDateString() %></span></span>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        <% }) %>
+    </div>
+</div>

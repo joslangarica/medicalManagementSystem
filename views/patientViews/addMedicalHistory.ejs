@@ -1,0 +1,115 @@
+<!-- Medical History -->
+<div class="accordion-item">
+    <h2 class="accordion-header" id="headingMedicalHistory">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMedicalHistory">
+            Medical History
+        </button>
+    </h2>
+    <div id="collapseMedicalHistory" class="accordion-collapse collapse" data-bs-parent="#addPatientAccordion">
+        <div class="accordion-body">
+            <div class="form-row">
+                <!-- Allergies -->
+                <div class="form-group col-md-6">
+                    <label for="allergies">Allergies:</label>
+                    <input type="text" class="form-control" id="allergies" name="allergies" placeholder="Comma-separated if multiple">
+                </div>
+
+                <!-- Medications -->
+                <div class="form-group col-md-6">
+                    <label for="medications">Medications:</label>
+                    <input type="text" class="form-control" id="medications" name="medications" placeholder="Comma-separated if multiple">
+                </div>
+
+                <!-- Chronic Diseases -->
+                <div class="form-group col-md-6">
+                    <label for="chronicDiseases">Chronic Diseases:</label>
+                    <input type="text" class="form-control" id="chronicDiseases" name="chronicDiseases" placeholder="Comma-separated if multiple">
+                </div>
+
+                <!-- Family Background -->
+                <div class="form-group col-md-6">
+                    <label for="familyBackground">Family Background:</label>
+                    <textarea class="form-control" id="familyBackground" name="familyBackground" rows="2"></textarea>
+                </div>
+
+                <!-- Non-pathological History -->
+                <div class="form-group col-md-6">
+                    <label for="surgeries">Surgeries:</label>
+                    <input type="text" class="form-control" id="surgeries" name="surgeries">
+
+                    <label for="traumas">Traumas:</label>
+                    <input type="text" class="form-control" id="traumas" name="traumas">
+
+                    <label for="transfusions">Transfusions:</label>
+                    <input type="text" class="form-control" id="transfusions" name="transfusions">
+
+                    <label for="smoking">Smoking:</label>
+                    <select class="form-control" id="smoking" name="smoking">
+                        <option value="non-smoker">Non-smoker</option>
+                        <option value="former smoker">Former smoker</option>
+                        <option value="current smoker">Current smoker</option>
+                    </select>
+
+                    <label for="alcoholConsumption">Alcohol Consumption:</label>
+                    <select class="form-control" id="alcoholConsumption" name="alcoholConsumption">
+                        <option value="never">Never</option>
+                        <option value="occasionally">Occasionally</option>
+                        <option value="frequently">Frequently</option>
+                    </select>
+
+                    <label for="immunizations">Immunizations:</label>
+                    <input type="text" class="form-control" id="immunizations" name="immunizations" placeholder="Comma-separated if multiple">
+                </div>
+                    <!-- Gynecological History -->
+                <div id="gynecologicalHistorySection" style="display: none;">
+                    <div class="form-group col-md-6">
+                        <label for="pregnancies">Pregnancies:</label>
+                        <input type="number" class="form-control" id="pregnancies" name="pregnancies">
+
+                        <label for="births">Births:</label>
+                        <input type="number" class="form-control" id="births" name="births">
+
+                        <label for="cSections">C-sections:</label>
+                        <input type="number" class="form-control" id="cSections" name="cSections">
+
+                        <label for="miscarriages">Miscarriages:</label>
+                        <input type="number" class="form-control" id="miscarriages" name="miscarriages">
+
+                        <label for="lastMenstruationDate">Last Menstruation Date:</label>
+                        <input type="date" class="form-control" id="lastMenstruationDate" name="lastMenstruationDate">
+
+                        <label for="contraceptiveHormonalTreatment">Contraceptive/Hormonal Treatment:</label>
+                        <input type="text" class="form-control" id="contraceptiveHormonalTreatment" name="contraceptiveHormonalTreatment">
+
+                        <label for="lastMammogramDate">Last Mammogram Date:</label>
+                        <input type="date" class="form-control" id="lastMammogramDate" name="lastMammogramDate">
+
+                        <label for="lastMammogramFindings">Last Mammogram Findings:</label>
+                        <textarea class="form-control" id="lastMammogramFindings" name="lastMammogramFindings" rows="2"></textarea>
+
+                        <label for="lastPapSmearDate">Last Pap Smear Date:</label>
+                        <input type="date" class="form-control" id="lastPapSmearDate" name="lastPapSmearDate">
+
+                        <label for="lastPapSmearFindings">Last Pap Smear Findings:</label>
+                        <textarea class="form-control" id="lastPapSmearFindings" name="lastPapSmearFindings" rows="2"></textarea>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('gender').addEventListener('change', function() {
+        const gynecologicalHistorySection = document.getElementById('gynecologicalHistorySection');
+        
+        if (this.value === 'female') {
+            gynecologicalHistorySection.style.display = 'block';
+        } else {
+            gynecologicalHistorySection.style.display = 'none';
+        }
+    });
+    </script>
+    

@@ -1,0 +1,39 @@
+<head>
+    <link rel="stylesheet" href="/css/verticalBar.css">
+  </head>
+  <body>
+    <aside class='verticalBar'>
+      <div class="vertical-nav">
+        <header class="brand-logo-container">
+            <a href="#" class="brand-logo"><i class="fas fa-stethoscope"></i> <span>DOCTORS</span></a>
+          </header>
+        <nav class="vertical-nav-list">
+          <div class="doctor-profile text-center">
+            <div class="profile-picture-container">
+              <img src="<%= doctor.profilePicture %>" alt="Doctor Profile Picture" class="profile-picture rounded-circle">
+              <div class="profile-info">
+                <!-- add edit profile button -->
+                <a href="/doctors/edit" class="btn btn-primary btn-sm">Edit Profile</a>
+
+
+                <h2 class="doctor-name"><%= user.name %></h2>
+                <p class="doctor-email"><%= user.email %></p>
+              </div>
+            </div>
+          </div>
+          <div class="nav-item-divider"></div>
+          <a href="/doctors/dashboard" class="vertical-nav-item active"><i class="fas fa-home"></i> Home</a>
+          <a href="/doctors/doctorProfile" class="vertical-nav-item active"><i class="fas fa-user-md"></i> Profile</a>
+          <a href="/appointments/calendar" class="vertical-nav-item"><i class="fas fa-calendar-alt"></i> Agenda</a>
+          <a href="/patients" class="vertical-nav-item"><i class="fas fa-procedures"></i> Patients</a>
+        </nav>
+      </div>
+    </aside>
+  </body>
+  
+  <script>
+    document.querySelector('.menu-toggle').addEventListener('click', function() {
+  document.querySelector('.verticalBar').classList.toggle('active');
+});
+
+  </script>

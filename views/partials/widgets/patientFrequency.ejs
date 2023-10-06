@@ -1,0 +1,70 @@
+<!-- patientFrequency.ejs -->
+
+<div class="widget">
+    <h2 class="widget-title">Patient Visit Frequencies</h2>
+    <div class="widget-content">
+        <% if(patientFrequency && patientFrequency.length > 0) { %>
+            <% patientFrequency.forEach(function(freq) { %>
+                <div class="patient-entry">
+                    <!-- Wrap the patient's name in a link -->
+                    <a href="/patients/<%= freq.patient.id %>" class="patient-link">
+                        <div class="patient-name">
+                            <%= freq.patient.firstName %> <%= freq.patient.lastName %>
+                        </div>
+                    </a>
+                    <div class="visit-count">
+                        <%= freq.count %> visits
+                    </div>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p>No data available.</p>
+        <% } %>
+    </div>
+</div>
+
+
+<!-- Add some basic styling in a CSS file -->
+
+<style>
+    .widget {
+        border: 1px solid #e1e1e1;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        overflow: hidden;
+    }
+
+    .widget-title {
+        background-color: #007bff;
+        color: white;
+        padding: 15px;
+        font-size: 18px;
+    }
+
+    .widget-content {
+        padding: 15px;
+    }
+
+    .patient-entry {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #e1e1e1;
+        padding: 10px 0;
+    }
+
+    .patient-entry:last-child {
+        border-bottom: none;
+    }
+
+    .patient-name {
+        font-weight: 500;
+    }
+
+    .visit-count {
+        background-color: #f7f7f7;
+        padding: 5px 10px;
+        border-radius: 12px;
+    }
+</style>

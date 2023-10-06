@@ -1,0 +1,76 @@
+.verticalBar {
+    width: 25%;
+    height: 100vh;
+    background: #007bff;
+    color: #ffffff;
+  }
+  
+  .brand-logo-container {
+    padding: 10px;
+    text-align: center;
+  }
+
+  .vertical-nav {
+    padding: 20px;
+  }
+  
+  .profile-picture-container {
+    position: relative;
+    margin: 20px auto; /* Center the container */
+  }
+  
+  .profile-picture {
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin: 10px auto; /* Center the image */
+  }
+  
+  .edit-profile-link {
+    position: absolute;
+    top: 100%; /* Position below the image */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    margin-top: 10px; /* Increased gap between image and link */
+
+    
+  }
+  
+  
+.doctor-name {
+    margin: 15px 0; /* Increased space above and below the name */
+    font-size: 16px;
+    text-align: center; /* Center text */
+  } 
+
+.doctor-email {
+  margin: 10px 0;
+  font-size: 16px;
+  text-align: center; /* Center text */
+}
+
+.nav-item-divider {
+  border-bottom: 1px solid #dee2e6;
+  margin: 70px 0; /* Increase space */
+}
+  .vertical-nav-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #343a40;
+    text-decoration: none;
+  }
+  
+  .vertical-nav-item i {
+    margin-right: 10px;
+  }
+  
+  .vertical-nav-item.active {
+    font-weight: bold;
+    color: #ffffff;
+  }
+  
+
+

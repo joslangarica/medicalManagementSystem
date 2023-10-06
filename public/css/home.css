@@ -1,0 +1,44 @@
+/* Hero Section */
+.jumbotron {
+    
+    position: relative; /* Relative positioning for the pseudo-element */
+    background: url('/images/hero.jpeg') no-repeat center center fixed; /* 'fixed' for parallax */
+    background-size: cover;
+    color: #fff;
+    padding: 150px 0; /* Increased padding to make it taller */
+}
+
+.jumbotron::before { /* Pseudo-element for the overlay */
+    content: '';
+    position: absolute; /* Absolute positioning */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5); /* Black color with 50% opacity */
+    z-index: -1; /* Place it behind the content */
+}
+
+/* Gallery Section */
+.gallery-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.gallery-section img {
+    border-radius: 10px;
+    transition: transform .2s ease-in-out;
+    width: 300px; /* Fixed width */
+    height: 200px; /* Fixed height */
+    object-fit: cover; /* Preserve aspect ratio */
+}
+
+.gallery-section img:hover {
+    transform: scale(1.05);
+}
+
+/* Features Section */
+.features-section .feature-icon {
+    color: #007bff;
+}

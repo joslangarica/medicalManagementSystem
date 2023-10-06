@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Schedule Appointment</title>
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <h2 class="mb-4">Schedule an Appointment</h2>
+
+        <form action="/appointments/schedule" method="post" enctype="multipart/form-data">
+
+            <!-- Scheduling Section -->
+            <div class="mb-4 bg-light p-4 rounded">
+                <h4>Scheduling</h4>
+                <!-- Patient Selection -->
+                <div class="mb-3">
+                    <label for="patient" class="form-label">Select Patient:</label>
+                    <select class="form-select" id="patient" name="patientId" required>
+                        <% patients.forEach(patient => { %>
+                            <option value="<%= patient._id %>" <%= (selectedPatient && selectedPatient._id.equals(patient._id)) ? 'selected' : '' %>>
+                                <%= patient.firstName %> <%= patient.lastName %>
+                            </option>
+                        <% }); %>
+                    </select>
+                </div>
+
+                <!-- Date & Time -->
+                <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label for="date" class="form-label">Date:</label>
+                        <input type="date" class="form-control" id="date" name="date" required>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label for="time" class="form-label">Time:</label>
+                        <select class="form-select" id="time" name="time" required>
+                            <% availableTimeSlots.forEach(time => { %>
+                                <option value="<%= time %>"><%= time %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Location -->
+                <div class="mb-3">
+                    <label for="location" class="form-label">Location:</label>
+                    <input type="text" class="form-control" id="location" name="location">
+                </div>
+            </div>
+
+            <!-- Consultation Section -->
+            <div class="accordion mt-4" id="consultationAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingConsultation">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseConsultation" aria-expanded="true" aria-controls="collapseConsultation">
+                            Consultation Details
+                        </button>
+                    </h2>
+                    <div id="collapseConsultation" class="accordion-collapse collapse show" aria-labelledby="headingConsultation" data-bs-parent="#consultationAccordion">
+                        <div class="accordion-body bg-light p-4 rounded">
+                            <!-- Reason for Visit & Diagnosis -->
+                            <div class="mb-3">
+                                <label for="reasonForVisit" class="form-label">Reason for Visit:</label>
+                                <textarea class="form-control" id="reasonForVisit" name="reasonForVisit" rows="3"></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="diagnosis" class="form-label">Diagnosis:</label>
+                                <textarea class="form-control" id="diagnosis" name="diagnosis" rows="3"></textarea>
+                            </div>
+
+                            <!-- Prescription -->
+                                                    
+                            <h6>Prescriptions</h6>
+                            <div id="prescriptionsContainer">
+                                <!-- Initial Prescription Group -->
+                                <div class="prescriptionGroup mb-3">
+                                    <div class="row">
+                                        <div class="mb-3 col-md-3">
+                                            <label for="medicineName[]" class="form-label">Medicine:</label>
+                                            <input type="text" class="form-control" name="medicineName[]">
+                                        </div>
+                                        <div class="mb-3 col-md-3">
+                                            <label for="dosage[]" class="form-label">Dosage:</label>
+                                            <input type="text" class="form-control" name="dosage[]">
+                                        </div>
+                                        <div class="mb-3 col-md-3">
+                                            <label for="frequency[]" class="form-label">Frequency:</label>
+                                            <input type="text" class="form-control" name="frequency[]">
+                                        </div>
+                                        <div class="mb-3 col-md-2">
+                                            <label for="duration[]" class="form-label">Duration:</label>
+                                            <input type="text" class="form-control" name="duration[]">
+                                        </div>
+                                        <div class="col-md-1 align-self-end">
+                                            <button type="button" class="btn btn-outline-danger removePrescriptionBtn" style="display: none;">−</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-outline-primary btn-sm mb-3" id="addPrescription">+ Add another prescription</button>
+
+
+
+                            <!-- Notes -->
+                            <div class="mb-3">
+                                <label for="notes" class="form-label">Notes:</label>
+                                <textarea class="form-control" id="notes" name="notes" rows="4"></textarea>
+                            </div>
+
+                            <!-- Documents -->
+                            <h6>Documents</h6>
+                            <div class="mb-3">
+                                <label for="documents" class="form-label">Upload:</label>
+                                <input type="file" class="form-control-file" id="documents" name="documents" accept=".pdf,.jpg,.jpeg,.png">
+                            </div>
+                            <div class="mb-3">
+                                <label for="documentDescription" class="form-label">Description:</label>
+                                <input type="text" class="form-control" id="documentDescription" name="documentDescription">
+                            </div>
+
+                            <!-- Follow-Up Date -->
+                            <div class="mb-3">
+                                <label for="followUpDate" class="form-label">Follow-Up Date:</label>
+                                <input type="date" class="form-control" id="followUpDate" name="followUpDate">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary mt-3">Save Appointment</button>
+        </form>
+    </div>
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+
+        const addPrescriptionBtn = document.getElementById('addPrescription');
+        const prescriptionsContainer = document.getElementById('prescriptionsContainer');
+
+            addPrescriptionBtn.addEventListener('click', function() {
+                const prescriptionGroup = document.createElement('div');
+                prescriptionGroup.className = 'prescriptionGroup mb-3';
+                
+                prescriptionGroup.innerHTML = `
+                    <div class="row">
+                        <div class="mb-3 col-md-3">
+                            <label for="medicineName[]" class="form-label">Medicine:</label>
+                            <input type="text" class="form-control" name="medicineName[]">
+                        </div>
+                        <div class="mb-3 col-md-3">
+                            <label for="dosage[]" class="form-label">Dosage:</label>
+                            <input type="text" class="form-control" name="dosage[]">
+                        </div>
+                        <div class="mb-3 col-md-3">
+                            <label for="frequency[]" class="form-label">Frequency:</label>
+                            <input type="text" class="form-control" name="frequency[]">
+                        </div>
+                        <div class="mb-3 col-md-2">
+                            <label for="duration[]" class="form-label">Duration:</label>
+                            <input type="text" class="form-control" name="duration[]">
+                        </div>
+
+
+                        <div class="col-md-1 align-self-end">
+                            <button type="button" class="btn btn-light removePrescriptionBtn">−</button>
+                        </div>
+                    </div>
+                `;
+
+                prescriptionsContainer.appendChild(prescriptionGroup);
+                addRemoveFunctionality();
+                prescriptionGroup.scrollIntoView({behavior: 'smooth'});
+            });
+
+            function addRemoveFunctionality() {
+                document.querySelectorAll('.removePrescriptionBtn').forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        e.currentTarget.closest('.prescriptionGroup').remove();
+                    });
+                });
+            }
+
+            addRemoveFunctionality();
+
+    </script>
+
+</body>
+
+</html>

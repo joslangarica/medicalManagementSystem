@@ -1,0 +1,220 @@
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    
+</head>
+<body>
+<div class="container mt-5">
+    <div class="d-flex align-items-center">
+        <h2 class="mb-4 flex-grow-1">Edit Appointment</h2>
+        <i class="fas fa-edit fa-2x text-primary"></i> <!-- Edit icon -->
+    </div>
+
+    <form action="/appointments/edit/<%= appointment._id %>" method="post" enctype="multipart/form-data">
+
+        <!-- Scheduling Section -->
+        <div class="mb-4 bg-light p-4 rounded shadow-sm">
+            <h4 class="mb-3">Scheduling</h4>
+
+            <!-- Hidden Input for PatientID -->
+            <input type="hidden" name="patientId" value="<%= appointment.patientId %>">
+
+            <!-- Date & Time -->
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="date" class="form-label">Date:</label>
+                    <input type="date" class="form-control" id="date" name="date" value="<%= appointment.date.toISOString().slice(0,10) %>" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="time" class="form-label">Time:</label>
+                    <input type="time" class="form-control" id="time" name="time" value="<%= appointment.date.toTimeString().slice(0,5) %>" required>
+                </div>
+            </div>
+
+            <!-- Location -->
+            <div class="mb-3">
+                <label for="location" class="form-label">Location:</label>
+                <input type="text" class="form-control" id="location" name="location" value="<%= appointment.location %>" required>
+            </div>
+
+            <!-- Status -->
+            <div class="mb-3">
+                <label for="status" class="form-label">Status:</label>
+                <select class="form-select" id="status" name="status" required>
+                    <option value="Scheduled" <%= appointment.status === 'Scheduled' ? 'selected' : '' %>>Scheduled</option>
+                    <option value="Cancelled" <%= appointment.status === 'Cancelled' ? 'selected' : '' %>>Cancelled</option>
+                    <option value="Completed" <%= appointment.status === 'Completed' ? 'selected' : '' %>>Completed</option>
+                </select>
+            </div>
+        </div>
+    
+        </div>
+
+        <!-- Consultation Details Section -->
+        <div class="accordion mt-4 shadow-sm" id="consultationAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingConsultation">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseConsultation" aria-expanded="true" aria-controls="collapseConsultation">
+                        Consultation Details
+                    </button>
+                </h2>
+                <div id="collapseConsultation" class="accordion-collapse collapse show" aria-labelledby="headingConsultation" data-bs-parent="#consultationAccordion">
+                    <div class="accordion-body bg-light p-4 rounded">
+                        <!-- Reason for Visit & Diagnosis -->
+                        <div class="mb-3">
+                            <label for="reasonForVisit" class="form-label">Reason for Visit:</label>
+                            <textarea class="form-control" id="reasonForVisit" name="reasonForVisit" rows="3"><%= appointment.reasonForVisit %></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="diagnosis" class="form-label">Diagnosis:</label>
+                            <textarea class="form-control" id="diagnosis" name="diagnosis" rows="3"><%= appointment.diagnosis %></textarea>
+                        </div>
+
+                
+
+                        <!-- Prescription -->
+                        <h6>Prescriptions</h6>
+                        <div id="prescriptionsContainer">
+
+                            <% if (appointment.prescription && appointment.prescription.length) { %>
+                                <% appointment.prescription.forEach((prescription, index) => { %>
+                                    <div class="prescriptionGroup mb-3">
+                                        <div class="row g-3">
+                                            <!-- Note the naming convention used in each input field -->
+                                            <div class="col-md-3">
+                                                <label class="form-label">Medicine:</label>
+                                                <input type="text" class="form-control" name="medicineName[]" value="<%= prescription.medicineName %>">
+                                                
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="form-label">Dosage:</label>
+                                                <input type="text" class="form-control" name="dosage[]" value="<%= prescription.dosage %>">
+                                                
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="form-label">Frequency:</label>
+                                                <input type="text" class="form-control" name="frequency[]" value="<%= prescription.frequency %>">
+                                               
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label class="form-label">Duration:</label>
+                                                <input type="text" class="form-control" name="duration[]" value="<%= prescription.duration %>">
+                                                
+                                            </div>
+                                            <div class="col-md-1 align-self-end">
+                                                <button type="button" class="btn btn-outline-danger removePrescriptionBtn">−</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% }); %>
+                            <% } %>
+                        </div>
+                        <button type="button" class="btn btn-outline-primary btn-sm mb-3" id="addPrescription">+ Add another prescription</button>
+
+                            <!-- Follow-up Date -->
+                            <div class="mb-3">
+                                <label for="followUpDate" class="form-label">Follow-up Date:</label>
+                                <input type="date" class="form-control" id="followUpDate" name="followUpDate" value="<%= appointment.followUpDate ? appointment.followUpDate.toISOString().slice(0,10) : '' %>">
+                            </div>
+
+                        <!-- Notes -->
+                        <div class="mb-3">
+                            <label for="notes" class="form-label">Notes:</label>
+                            <textarea class="form-control" id="notes" name="notes" rows="4"><%= appointment.notes %></textarea>
+                        </div>
+
+                        <!-- Documents -->
+                        <h6>Documents</h6>
+                        <div class="mb-3">
+                            <label for="documents" class="form-label">Upload:</label>
+                            <input type="file" class="form-control-file" id="documents" name="documents" accept=".pdf,.jpg,.jpeg,.png">
+                        </div>
+                        <div class="mb-3">
+                            <label for="documentDescription" class="form-label">Document Description:</label>
+                            <input type="text" class="form-control" id="documentDescription" name="documentDescription" value="<%= appointment.documentDescription %>">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+                <!-- Actions -->
+        <div class="d-flex justify-content-end mt-3">
+            <button type="submit" class="btn btn-primary mr-2">Save</button>
+
+        </div>
+    </form>
+
+    <div class="d-flex justify-content-end mt-3" style="display: inline;">
+        <form action="/appointments/delete/<%= appointment._id %>?_method=DELETE" method="post" onsubmit="return confirm('Are you sure you want to delete this appointment?');" style="display: inline;">
+            <button type="submit" class="btn btn-danger">
+                <i class="fas fa-trash"></i> Delete
+            </button>
+        </form>
+    </div>
+
+        
+
+</div>
+
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<!-- Custom JS Logic -->
+<script>
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const addPrescriptionBtn = document.getElementById('addPrescription');
+    const prescriptionsContainer = document.getElementById('prescriptionsContainer');
+
+    addPrescriptionBtn.addEventListener('click', function() {
+        const index = prescriptionsContainer.getElementsByClassName('prescriptionGroup').length;
+
+        const prescriptionGroup = document.createElement('div');
+        prescriptionGroup.className = 'prescriptionGroup mb-3';
+
+        prescriptionGroup.innerHTML = `
+    <div class="row g-3">
+        <div class="col-md-3">
+            <label class="form-label">Medicine:</label>
+            <input type="text" class="form-control" name="medicineName[]" value="">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Dosage:</label>
+            <input type="text" class="form-control" name="dosage[]" value="">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Frequency:</label>
+            <input type="text" class="form-control" name="frequency[]" value="">
+        </div>
+        <div class="col-md-2">
+            <label class="form-label">Duration:</label>
+            <input type="text" class="form-control" name="duration[]" value="">
+        </div>
+    </div>
+`;
+
+
+        prescriptionsContainer.appendChild(prescriptionGroup);
+        addRemoveFunctionality();
+    });
+
+    function addRemoveFunctionality() {
+        document.querySelectorAll('.removePrescriptionBtn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.currentTarget.closest('.prescriptionGroup').remove();
+            });
+        });
+    }
+
+    addRemoveFunctionality();
+});
+
+
+
+</script>
+</body>
+
+
+

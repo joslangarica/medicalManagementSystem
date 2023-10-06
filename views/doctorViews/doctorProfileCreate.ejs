@@ -1,0 +1,79 @@
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h1 class="heading-primary">Create Doctor Profile</h1>
+
+                        <form action="./createProfile" method="POST" enctype="multipart/form-data" class="form">
+
+                            <!-- Personal Details -->
+                            <div class="personal-details">
+                                <div class="row gutters">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label for="speciality">Speciality:</label>
+                                            <input type="text" class="form-control" name="speciality" required>
+                                            <label for="cellphone">Cellphone:</label>
+                                            <input type="tel" name="cellphone">
+                                            <label for="dateOfBirth">Date of Birth:</label>
+                                            <input type="date" name="dateOfBirth">
+                                            <label for="timezone">Timezone:</label>
+                                            <select id="timezone" name="timezone">
+                                                <option value="America/Tijuana">Baja California (Tijuana)</option>
+                                                <option value="America/Hermosillo">Sonora (Hermosillo)</option>
+                                                <option value="America/Chihuahua">Chihuahua, Sinaloa (Chihuahua)</option>
+                                                <option value="America/Mexico_City">Central Time Zone (Mexico City)</option>
+                                                <option value="America/Cancun">Quintana Roo (Cancun)</option>
+                                                <option value="America/Mazatlan">Mountain Time Zone (Mazatlan)</option>
+                                                <option value="America/Ojinaga">Pacific Time Zone (Ojinaga)</option>
+
+                                            </select>
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="buttons-section row gutters">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="text-right">
+                                        <a href="/doctors/doctorProfile" class="btn btn-secondary">Cancel</a>
+                                        <button type="submit" class="btn btn-primary">Create Profile</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    
+    document.addEventListener('DOMContentLoaded', function() {
+    const detectedTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    
+    const timezoneSelect = document.getElementById('timezone');
+    if (timezoneSelect) {
+        for (let i = 0; i < timezoneSelect.options.length; i++) {
+            if (timezoneSelect.options[i].value === detectedTimezone) {
+                timezoneSelect.options[i].selected = true;
+                break;
+            }
+        }
+    }
+});
+
+</script>

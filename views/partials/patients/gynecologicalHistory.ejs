@@ -1,0 +1,17 @@
+<!-- Gynecological History -->
+<% if(patient.gender && patient.gender.toLowerCase() === 'female') { %>
+    <div class="tab-pane fade" id="list-gynecological-history" role="tabpanel" aria-labelledby="list-gynecological-history-tab">
+        <ul class="list-group">
+            <li class="list-group-item">Pregnancies: <%= patient.medicalHistory.gynecologicalHistory.pregnancies %></li>
+            <li class="list-group-item">Births: <%= patient.medicalHistory.gynecologicalHistory.births %></li>
+            <li class="list-group-item">C-Sections: <%= patient.medicalHistory.gynecologicalHistory.cSections %></li>
+            <li class="list-group-item">Miscarriages: <%= patient.medicalHistory.gynecologicalHistory.miscarriages %></li>
+            <li class="list-group-item">Last Menstruation Date: <%= patient.medicalHistory.gynecologicalHistory.lastMenstruationDate %></li>
+            <li class="list-group-item">Contraceptive Hormonal Treatment: <%= patient.medicalHistory.gynecologicalHistory.contraceptiveHormonalTreatment %></li>
+            <li class="list-group-item">Last Mammogram Date: <%= patient.medicalHistory.gynecologicalHistory.lastMammogramDate %></li>
+            <li class="list-group-item">Last Mammogram Findings: <%= patient.medicalHistory.gynecologicalHistory.lastMammogramFindings %></li>
+            <li class="list-group-item">Last Pap Smear Date: <%= patient.medicalHistory.gynecologicalHistory.lastPapSmearDate %></li>
+            <li class="list-group-item">Last Pap Smear Findings: <%= patient.medicalHistory.gynecologicalHistory.lastPapSmearFindings %></li>
+        </ul>
+    </div>
+<% } %>

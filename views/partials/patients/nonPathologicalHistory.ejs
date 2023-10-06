@@ -1,0 +1,12 @@
+<div class="tab-pane fade" id="list-non-pathological-history" role="tabpanel" aria-labelledby="list-non-pathological-history-tab">
+    <ul class="list-group">
+        <li class="list-group-item">Surgeries: <%= patient.medicalHistory.nonPathologicalHistory.surgeries %></li>
+        <li class="list-group-item">Traumas: <%= patient.medicalHistory.nonPathologicalHistory.traumas %></li>
+        <li class="list-group-item">Transfusions: <%= patient.medicalHistory.nonPathologicalHistory.transfusions %></li>
+        <li class="list-group-item">Smoking: <%= patient.medicalHistory.nonPathologicalHistory.smoking %></li>
+        <li class="list-group-item">Alcohol Consumption: <%= patient.medicalHistory.nonPathologicalHistory.alcoholConsumption %></li>
+        <% patient.medicalHistory.nonPathologicalHistory.immunizations.forEach(immunization => { %>
+            <li class="list-group-item">Immunization: <%= immunization %></li>
+        <% }); %>
+    </ul>
+</div>

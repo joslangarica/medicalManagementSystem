@@ -1,0 +1,85 @@
+
+.card {
+    border: none;
+    margin-bottom: 24px;
+    -webkit-box-shadow: 0 0 13px 0 rgba(236,236,241,.44);
+    box-shadow: 0 0 13px 0 rgba(236,236,241,.44);
+}
+
+/* Timeline Styles */
+.hori-timeline {
+    overflow-x: auto;
+    white-space: nowrap;  /* Keeps events on a single line */
+}
+
+.hori-timeline .events {
+    border-top: 3px solid #e9ecef;
+}
+
+.hori-timeline .events .event-list {
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    padding-top: 80px;
+    width: 23%; /* slight reduction for margin */
+    margin-right: 1%; /* spacing between events */
+    box-sizing: border-box; /* ensures dimensions include padding & border */
+}
+
+.hori-timeline .events .event-list:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    height: 36px;
+    border-right: 2px dashed #dee2e6;
+}
+
+.hori-timeline .events .event-list .event-date {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%); /* centers the element */
+    width: auto; /* removed fixed width to adapt to content */
+    border-radius: 4px;
+    padding: 2px 10px; /* increased side padding for better appearance */
+}
+
+/* Color Themes */
+.bg-soft-primary {
+    background-color: rgba(64,144,203,.3);
+}
+
+.bg-soft-success {
+    background-color: rgba(71,189,154,.3);
+}
+
+.bg-soft-danger {
+    background-color: rgba(231,76,94,.3);
+}
+
+.bg-soft-warning {
+    background-color: rgba(249,213,112,.3);
+}
+
+@media (max-width: 1139px) { /* This breakpoint targets screens smaller than 1140px */
+    .hori-timeline {
+        white-space: normal;  /* Allows content to wrap */
+    }
+
+    .hori-timeline .events .event-list {
+        display: block;  /* Stack each event */
+        width: 100%;  /* Take the full width */
+        margin-right: 0;  /* No right margin on mobile */
+        padding-top: 70px;  /* Adjust top padding */
+    }
+
+    .hori-timeline .events .event-list:before {
+        top: -10px;  /* Move the line a bit higher */
+    }
+
+    .hori-timeline .events .event-list .event-date {
+        top: 38px;  /* Position the date square below the line */
+        width: auto;  /* Adaptive width based on content */
+        padding: 2px 8px;  /* Adjust padding for the date square */
+    }
+}

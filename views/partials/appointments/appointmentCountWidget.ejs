@@ -1,0 +1,87 @@
+<head>
+  <title>Appointments Overview</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-4">
+  <div class="card bg-light mb-3">
+      <div class="card-header text-primary">Appointments Overview</div>
+      <div class="card-body">
+          <h5 class="card-title">Total Number of Appointments</h5>
+          <div class="row">
+              <div class="col-md-3 appointment-box">
+                  <h6 class="text-center">Today</h6>
+                  <div class="calendar-container">
+                      <div class="calendar-header text-center"><%= new Date().toLocaleDateString('en-US', {weekday: 'long'}) %></div>
+                      <p class="text-center appointment-count font-weight-bold"><%= todayAppointments %></p>
+                  </div>
+              </div>
+              <div class="col-md-3 appointment-box">
+                  <h6 class="text-center">This Week</h6>
+                  <div class="calendar-container">
+                    <div class="calendar-header text-center"> <span class="week-dates"></span></div>
+
+                      <p class="text-center appointment-count font-weight-bold"><%= weekAppointments %></p>
+                  </div>
+              </div>
+              <div class="col-md-3 appointment-box">
+                  <h6 class="text-center">This Month</h6>
+                  <div class="calendar-container">
+                      <div class="calendar-header text-center"><%= new Date().toLocaleDateString('en-US', {month: 'long'}) %></div>
+                      <p class="text-center appointment-count font-weight-bold"><%= monthAppointments %></p>
+                  </div>
+              </div>
+              <div class="col-md-3 appointment-box">
+                  <h6 class="text-center">Total</h6>
+                  <div class="calendar-container">
+                      <div class="calendar-header text-center">All Time</div>
+                      <p class="text-center appointment-count font-weight-bold"><%= totalAppointments %></p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<style>
+  .appointment-box {
+      border: 1px solid #dee2e6;
+      padding: 15px;
+      margin: 5px;
+      border-radius: 5px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+  .calendar-container {
+      border: 2px solid #007bff;
+      border-radius: 10px;
+      padding: 15px;
+  }
+  .calendar-header {
+      background-color: #007bff;
+      color: #fff;
+      padding: 5px;
+      border-radius: 8px 8px 0 0;
+  }
+  .appointment-count {
+      font-size: 24px;
+  }
+</style>
+
+<script>
+ function getCurrentWeekDates() {
+    const currentDate = new Date();
+    const currentDay = currentDate.getDay();
+    const firstDayOfWeek = new Date(currentDate);
+    firstDayOfWeek.setDate(currentDate.getDate() - currentDay);
+    const lastDayOfWeek = new Date(firstDayOfWeek);
+    lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6);
+    return { start: firstDayOfWeek.getDate(), end: lastDayOfWeek.getDate() };
+  }
+
+  // Update the week's dates in the DOM
+  const weekDates = getCurrentWeekDates();
+  document.querySelector('.week-dates').textContent = `${weekDates.start}-${weekDates.end}`;
+</script>
+
+</body>

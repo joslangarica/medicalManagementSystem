@@ -1,0 +1,87 @@
+/* Using the same color and typography variables */
+:root {
+    --primary-color: #007BFF;
+    --secondary-color: #F4F4F4;
+    --text-color: #333333;
+    --accent-color: #50C878;
+    --primary-font: Arial, sans-serif;
+}
+
+/* Base Styles */
+body {
+    font-family: var(--primary-font);
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    margin: 0;
+}
+
+/* Container */
+.register-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+.register-heading {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 16px;
+}
+
+/* Input Styles */
+.form-group label {
+    font-size: 14px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid var(--text-color);
+    border-radius: 4px;
+}
+
+/* Button Styles */
+.register-btn {
+    background-color: var(--primary-color);
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+}
+
+.register-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Login Link */
+.login-link {
+    display: block;
+    margin-top: 10px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.login-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}

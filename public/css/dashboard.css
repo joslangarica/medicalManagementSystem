@@ -1,0 +1,36 @@
+/* Basic variables as per the given styling guide */
+:root {
+    --primary-color: #007BFF;
+    --secondary-color: #F4F4F4;
+    --text-color: #333333;
+    --primary-font: Arial, sans-serif;
+}
+
+/* Base styles */
+body {
+    font-family: var(--primary-font);
+    color: var(--text-color);
+    margin: 0;
+    background-color: var(--secondary-color);
+}
+
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: var(--secondary-color);
+}
+
+.welcome-message {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Edit Profile Link */
+.edit-profile-link {
+    margin-top: 10px;
+}
+
+
+

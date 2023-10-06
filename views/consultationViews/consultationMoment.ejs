@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Consultation Moment</title>
+    <!-- Include bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2>Consultation Moment</h2>
+    
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">Patient Name: <%= consultation.patientId.firstName %></h5>
+            <p class="card-text">Doctor: <%= consultation.doctorId.firstName %> <%= consultation.doctorId.lastName %></p>
+            <p class="card-text">Date: <%= consultation.date %></p>
+            <p class="card-text">Notes: <%= consultation.notes %></p>
+        </div>
+    </div>
+</div>
+
+<!-- Include Bootstrap JS and Popper.js -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

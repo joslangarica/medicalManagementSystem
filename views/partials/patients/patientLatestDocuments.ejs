@@ -1,0 +1,42 @@
+<!-- right wrapper start -->
+<div class="col-md-12 col-xl-3 right-wrapper">
+
+    <div class="card shadow-lg rounded">
+
+        <!-- Documents Header -->
+        <div class="card-header bg-primary text-white p-3">
+            <div class="d-flex align-items-center justify-content-between">
+                <h4 class="text-white">Documents</h4>
+                
+                <!-- Upload button with icon -->
+                <label for="upload" class="btn btn-light btn-sm" title="Upload Document">
+                    <i class="fas fa-upload"></i>
+                </label>
+                <input type="file" id="upload" style="display: none;" multiple>
+                
+            </div>
+        </div>
+
+        <!-- List of Documents -->
+        <ul class="list-group list-group-flush">
+            <% if (patient.documents && patient.documents.length > 0) { %>
+                <% patient.documents.forEach(document => { %>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-file-alt text-secondary me-2"></i>
+                            <%= document.description %>
+                        </div>
+                        <a href="<%= document.uri %>" title="Download Document" class="text-primary">
+                            <i class="fas fa-download"></i>
+                        </a>
+                    </li>
+                <% }) %>
+            <% } else { %>
+                <li class="list-group-item">
+                    No documents uploaded yet.
+                </li>
+            <% } %>
+        </ul>
+    </div>
+</div>
+<!-- right wrapper end -->

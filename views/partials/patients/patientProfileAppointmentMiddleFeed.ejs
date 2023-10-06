@@ -1,0 +1,65 @@
+<div class="col-md-8 col-xl-6 middle-wrapper bg-light">
+    <div class="row">
+        <div class="col-md-12 grid-margin">
+
+             <div class="card-header bg-primary text-white p-3 mb-4">
+                <div class="d-flex align-items-center justify-content-between">
+                    <h4 class="text-white">Last Patient Consultations</h4>
+                </div>
+            </div>
+
+            <% if (appointments && appointments.length > 0) { %>
+                <% for (let i = 0; i < Math.min(5, appointments.length); i++) { %>
+                    <div class="card shadow-sm mb-4">
+                        <a href="/appointments/details/<%= appointments[i]._id %>" class="text-decoration-none">
+                            <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <%= appointments[i].date.toDateString() %> | 
+                                        <%= appointments[i].date.toTimeString().split(' ')[0] %> <!-- Stripping off the GMT and other parts -->
+                                    </div>
+                                </div>
+                                <i class='far fa-address-card' style='font-size:26px'></i>
+                            </div>
+                        </a>
+                        <div class="card-body">
+                            <div>
+                                <strong>Location:</strong> <%= appointments[i].location %><br>
+                                <strong>Status:</strong> <%= appointments[i].status %> <span class="badge <%= patient.patientStatus %>"></span>
+                            </div>
+                            <% if (appointments[i].notes && appointments[i].notes.trim().length > 0) { %>
+                                <hr>
+                                <div>
+                                    <strong>Notes:</strong> <%= appointments[i].notes %>
+                                </div>
+                            <% } %>
+                            <% if (appointments[i].documents && appointments[i].documents.length > 0) { %>
+                                <hr>
+                                <div>
+                                    <strong>Attachments:</strong>
+                                    <% appointments[i].documents.forEach(document => { %>
+                                        <div>
+                                            <i class="fas fa-file-alt text-secondary me-2"></i>
+                                            <%= document.description || 'Document available but no description provided.' %>
+                                        </div>
+                                    <% }) %>
+                                </div>
+                            <% } %>
+                        </div>  
+                        
+                    </div>
+                <% } %>
+                <% if (appointments.length > 3) { %>
+                    <div class="d-flex justify-content-center mt-4">
+                        <button id="loadMoreButton" class="btn btn-primary">Load More</button>
+                    </div>
+                <% } %>
+            <% } else { %>
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    No appointments found.
+                </div>
+            <% } %>
+        </div>
+    </div>
+</div>

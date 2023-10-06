@@ -1,0 +1,185 @@
+<head>
+    <link rel="stylesheet" href="/css/doctorProfileEdit.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h1>Edit Doctor Profile</h1>
+              <form action="./edit" method="POST" enctype="multipart/form-data">
+  
+                <!-- Timezone -->
+                <div class="mb-3">
+                  <label for="timezone" class="form-label">Timezone:</label>
+                  <select class="form-select" id="timezone" name="timezone">
+                    <option value="America/Tijuana">Baja California (Tijuana)</option>
+                    <option value="America/Hermosillo">Sonora (Hermosillo)</option>
+                    <option value="America/Chihuahua">Chihuahua, Sinaloa (Chihuahua)</option>
+                    <option value="America/Mexico_City">Central Time Zone (Mexico City)</option>
+                    <option value="America/Cancun">Quintana Roo (Cancun)</option>
+                    <option value="America/Mazatlan">Mountain Time Zone (Mazatlan)</option>
+                    <option value="America/Ojinaga">Pacific Time Zone (Ojinaga)</option>
+                  </select>
+                </div>
+  
+                <!-- Personal Details -->
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="speciality" class="form-label">Speciality:</label>
+                      <input type="text" class="form-control" id="speciality" name="speciality" value="<%= doctor.speciality ? doctor.speciality : '' %>" >
+                    </div>
+                    <div class="mb-3">
+                      <label for="officeNumber" class="form-label">Office Number:</label>
+                      <input type="text" class="form-control" id="officeNumber" name="officeNumber">
+                    </div>
+                    <div class="mb-3">
+                      <label for="cellphone" class="form-label">Cellphone:</label>
+                      <input type="tel" class="form-control" id="cellphone" name="cellphone">
+                    </div>
+                    <div class="mb-3">
+                        <label for="dateOfBirth" class="form-label">Date of Birth:</label>
+                        <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" value="<%= doctor.dateOfBirth ? new Date(doctor.dateOfBirth).toISOString().split('T')[0] : '' %>">
+                      </div>
+                      
+                    <div class="mb-3">
+                      <label for="professionalLicense" class="form-label">Professional License:</label>
+                      <input type="text" class="form-control" id="professionalLicense" name="professionalLicense">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="profilePicture" class="form-label">Profile Picture:</label>
+                      <input class="form-control" type="file" id="profilePicture" name="profilePicture" accept="image/*">
+                    </div>
+                    <div class="mb-3">
+                      <img src="<%= doctor.profilePicture %>" alt="Profile Picture" class="img-fluid">
+                    </div>
+                  </div>
+                </div>
+  
+               
+  
+                <!-- Schools Dynamic Fields -->
+                <div id="schools">
+                  <div class="mb-3">
+                    <label class="form-label">Schools:</label>
+                    <% doctor.schools.forEach(function(school, index) { %>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <input type="text" class="form-control" name="schools[<%= index %>][name]" value="<%= school.name %>">
+                        </div>
+                        <div class="col-md-4">
+                          <input type="text" class="form-control" name="schools[<%= index %>][degree]" value="<%= school.degree %>">
+                        </div>
+                        <div class="col-md-3">
+                          <input type="date" class="form-control" name="schools[<%= index %>][yearOfGraduation]" value="<%= school.yearOfGraduation %>">
+                        </div>
+                      </div>
+                    <% }); %>
+                    <button type="button" class="btn btn-success" id="addSchool">Add School</button>
+                  </div>
+                </div>
+  
+                <!-- Working Hours -->
+                <div id="workingHours">
+                  <% doctor.workingHours.forEach(function(workingHour, index) { %>
+                    <fieldset>
+                      <legend>Working Hour <%= index + 1 %></legend>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="workingHour_day_<%= index %>">Day:</label>
+                          <select class="form-select" name="workingHours[<%= index %>][day]">
+                            <% ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'].forEach(function(day) { %>
+                              <option value="<%= day %>" <% if (day === workingHour.day) { %>selected<% } %>><%= day.charAt(0).toUpperCase() + day.slice(1) %></option>
+                            <% }); %>
+                          </select>
+                        </div>
+                        <div class="col-md-4">
+                          <label for="workingHour_startTime_<%= index %>">Start Time:</label>
+                          <input type="time" class="form-control" name="workingHours[<%= index %>][startTime]" value="<%= workingHour.startTime %>">
+                        </div>
+                        <div class="col-md-4">
+                          <label for="workingHour_endTime_<%= index %>">End Time:</label>
+                          <input type="time" class="form-control" name="workingHours[<%= index %>][endTime]" value="<%= workingHour.endTime %>">
+                        </div>
+                      </div>
+                    </fieldset>
+                  <% }); %>
+                  <button type="button" id="addWorkingHours" class="btn btn-success">Add Working Hours</button>
+                </div>
+  
+                <!-- Buttons -->
+                <div class="d-flex justify-content-end mt-3">
+                  <a href="/doctors/doctorProfile" class="btn btn-secondary me-2">Cancel</a>
+                  <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+  
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+
+
+<script>
+    $(document).ready(function() {
+    $('#addWorkingHours').click(function() {
+        var index = $('#workingHours .working-hours-row').length;
+        var newRow = `<div class="working-hours-row form-row align-items-center mb-2">
+                        <div class="col-auto">
+                            <select class="form-control" name="workingHours[${index}][day]">
+                                <option value="mon">Monday</option>
+                                <option value="tue">Tuesday</option>
+                                <option value="wed">Wednesday</option>
+                                <option value="thu">Thursday</option>
+                                <option value="fri">Friday</option>
+                                <option value="sat">Saturday</option>
+                                <option value="sun">Sunday</option>
+                            </select>
+                        </div>
+                        <div class="col-auto">
+                            <input type="time" class="form-control" name="workingHours[${index}][start]" required>
+                        </div>
+                        <div class="col-auto">
+                            <input type="time" class="form-control" name="workingHours[${index}][end]" required>
+                        </div>
+                        <div class="col-auto">
+                            <button type="button" class="btn btn-danger remove-working-hours">Remove</button>
+                        </div>
+                      </div>`;
+        $('#workingHours').append(newRow);
+    });
+
+    $(document).on('click', '.remove-working-hours', function() {
+        $(this).closest('.working-hours-row').remove();
+    });
+});
+
+
+    // Dynamic field for Schools
+    $('#addSchool').click(function() {
+        var index = $('#schools .schools-row').length;
+        var newRow = `<div class="schools-row">
+                        <input type="text" class="form-control" name="schools[${index}][name]" placeholder="School Name">
+                        <input type="text" class="form-control" name="schools[${index}][degree]" placeholder="Degree">
+                        <input type="date" class="form-control" name="schools[${index}][yearOfGraduation]" placeholder="Year of Graduation">
+                        <button type="button" class="btn btn-danger remove-school">Remove</button>
+                    </div>`;
+        $('#schools').append(newRow);
+    });
+
+    $(document).on('click', '.remove-school', function() {
+        $(this).closest('.schools-row').remove();
+    });
+
+</script>
+
